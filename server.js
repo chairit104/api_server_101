@@ -4,9 +4,11 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+const {readdirSync} = require(('fs'))
+
 // routers
-const authRouter = require('./Routes/auth')
-const productRouter = require('./Routes/product')
+// const authRouter = require('./Routes/auth')
+// const productRouter = require('./Routes/product')
 
 //app
 const app = express();
@@ -22,11 +24,13 @@ app.get('/register',(req,res)=>{
 })
 
 // Route 2
-app.use('/api', authRouter)
-app.use('/api', productRouter)
+// app.use('/api', authRouter)
+// app.use('/api', productRouter)
 
 // Route 3
+readdirSync('./Routes').map((r)=>app.use('/api',require(`./Routes/${r}`)))
 
+// ('./Routes/'+r)
 
 
 
